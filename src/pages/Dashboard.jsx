@@ -1,19 +1,37 @@
+import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
+
 const Dashboard = () => {
-    return (
-      <div className="min-h-screen bg-[#f3efe6] p-6">
-        <header className="bg-white shadow p-4 flex justify-between items-center rounded">
-          <h1 className="text-xl font-bold">☕ Coffee Dashboard</h1>
-          <button className="bg-brown-700 text-white px-4 py-2 rounded hover:bg-brown-800">Logout</button>
-        </header>
-  
-        <main className="mt-6 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-white p-4 rounded shadow">☕ Orders Today</div>
-          <div className="bg-white p-4 rounded shadow">📦 Inventory Status</div>
-          <div className="bg-white p-4 rounded shadow">👥 Customer Feedback</div>
-        </main>
-      </div>
-    );
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Replace with real logout logic
+    navigate('/login');
   };
-  
-  export default Dashboard;
-  
+
+  return (
+    <div className="dashboard-container">
+      <header className="dashboard-header">
+        <h1>☕ Coffee Dashboard</h1>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      </header>
+
+      <main className="dashboard-main">
+        <div className="coffee-card">
+          <h2>☕ Orders Today</h2>
+          <p>23 drinks served</p>
+        </div>
+        <div className="coffee-card">
+          <h2>📦 Inventory Status</h2>
+          <p>Low on espresso beans</p>
+        </div>
+        <div className="coffee-card">
+          <h2>👥 Customer Feedback</h2>
+          <p>4.8 ⭐ average rating</p>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;
