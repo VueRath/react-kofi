@@ -1,0 +1,74 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Ensure input and textarea have a larger font size */
+input, textarea {
+  font-size: 16px; /* Make it big enough to see */
+  padding: 10px;   /* Give some space around the text */
+  border: 1px solid #ccc; /* Add a border for visibility */
+  border-radius: 5px; /* Smoothen the edges */
+  width: 100%; /* Ensure it takes full width */
+}
+
+/* Adjust placeholder text styling */
+input::placeholder, textarea::placeholder {
+  color: #888; /* Make the placeholder a light gray (adjust to your theme) */
+  font-size: 16px; /* Ensure placeholder size is readable */
+  opacity: 1; /* Ensure the placeholder isn't too faint */
+}
+
+/* Ensure container has enough space around the input */
+input, textarea {
+  padding: 0.8rem; /* Adjust padding inside */
+  margin: 0.5rem 0; /* Add spacing around the input */
+}
+
+/* Add space between the form elements */
+form {
+  margin-bottom: 1rem;
+}
+
+input::placeholder, textarea::placeholder {
+  opacity: 1; /* Ensure it’s fully visible */
+  color: #888; /* Choose a color that contrasts with the background */
+}
