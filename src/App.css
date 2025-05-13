@@ -1,7 +1,6 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  height: 100vh;
   text-align: center;
 }
 
@@ -43,11 +42,11 @@
 
 /* Ensure input and textarea have a larger font size */
 input, textarea {
-  font-size: 16px; /* Make it big enough to see */
-  padding: 10px;   /* Give some space around the text */
+  font-size: 20px; /* Make it big enough to see */
+  padding: 13px;   /* Give some space around the text */
   border: 1px solid #ccc; /* Add a border for visibility */
   border-radius: 5px; /* Smoothen the edges */
-  width: 100%; /* Ensure it takes full width */
+  width: auto; /* Ensure it takes full width */
 }
 
 /* Adjust placeholder text styling */

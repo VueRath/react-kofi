@@ -1,22 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
+import Welcome from './pages/Welcome';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import KofiLogo from './images/KofiLogo.jpg';
 
 function App() {
 
   return (
     <>
-    <h1>Welcome to coffee shop!</h1>
       <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
     </Routes>
     </>
   )
