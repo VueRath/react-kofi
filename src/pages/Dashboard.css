@@ -4,6 +4,7 @@ body {
   background-color: #f3efe6;
 }
 
+/* Main and Dashboard */
 .dashboard-container {
   padding: 24px;
   min-height: 100vh;
@@ -47,6 +48,55 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.section-title {
+  margin-bottom: 10px;
+  color: #5c3a1d;
+}
+
+
+/* Summary Section */
+.summary-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(100, 63, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(100, 63, 0, 0.2);
+}
+
+.summary-card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #5c3a1d;
+}
+
+.summary-card p {
+  font-size: 16px;
+  color: #444;
+}
+
+/* Coffee Grid Section */
+.coffee-grid {
+  margin-top: 32px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.coffee-card-item {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 .coffee-card {
   background-color: #fff;
   padding: 20px;
@@ -69,4 +119,65 @@ body {
 .coffee-card p {
   font-size: 16px;
   color: #444;
+}
+
+.coffee-card {
+  width: 280px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coffee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.coffee-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.coffee-details {
+  padding: 16px;
+  text-align: center;
+}
+
+.coffee-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #4b2e2e;
+}
+
+.coffee-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.coffee-price {
+  font-size: 1.1rem;
+  color: #2d2d2d;
+  margin-bottom: 12px;
+}
+
+.buy-button {
+  background-color: #6f4e37;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buy-button:hover {
+  background-color: #5a3f2e;
 }
