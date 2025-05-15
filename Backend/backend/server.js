@@ -1,15 +1,19 @@
-const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
-const e = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const path = require('path');
-require('dotenv').config({path: path.resolve(__dirname, '.env')});
+import express from 'express';
+import cors from 'cors';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import path from 'path';
+import dotenv from 'dotenv';
+import fetch from 'node-fetch';
+import fs from 'fs';
+import mysql from 'mysql2/promise';
+import { fileURLToPath } from 'url';
+dotenv.config({ path: path.resolve('./.env') });
 const SECRET_KEY = process.env.SECRET_KEY;
-const { body, validationResult } = require('express-validator');
-const fs = require('fs');
-console.log('ENV file contents: ', fs.readFileSync(path.resolve(__dirname,'.env'), 'utf-8'));
+import { body, validationResult } from 'express-validator';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log('ENV file contents: ', fs.readFileSync(path.resolve(__dirname, '.env'), 'utf-8'));
 
 // Token for the login file
 if(!SECRET_KEY)
@@ -24,13 +28,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+/**
+ * Configuration statis to create and connect to the database
+ * using also promise to avoid complexity in coding.
+ */
+
 // Creating connection to mysql (config)
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'coffee_db'
-}).promise();
+const db = await mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'coffee_db'
+});
 
 // Connection to Express (config)
 db.connect(err => {
@@ -67,6 +76,11 @@ app.post('/register-admin', [
         res.status(500).json({ message: 'Server error', error });
     }
 });
+
+/**
+ * Getting all the database table ensuring all users other tables are going to 
+ * Fetch in my frontend using API so that my frontend can able to communicate in my backend.
+ */
 
 // Fetching all coffees in the database
 app.get('/coffees', async (req, res) => {
@@ -108,7 +122,6 @@ app.post('/login', async (req, res) => {
 
     if (!match) return res.status(401).json({ message: 'Invalid password' });
 
-    // Causes an error
     const token = jwt.sign(
       { id: user.id, role: user.role },
        SECRET_KEY, { expiresIn: '1h' }
@@ -129,6 +142,32 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+/**
+ * Adding Middleware to the system to avoid direct path to the system
+ * This ensure also that the system path are blocks whenever someone is trying to access into it.
+ */
+
+//Middleware
+function authenticateToken(req,res,next)
+{
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer Token or handle the token
+
+  if(!token) return res.status(401).json({message: 'No token provided'});
+
+  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+    if(err) return res.status(403).json({message: 'Invalid token'});
+    req.user = user;
+    next();
+  });
+}
+
+// Protected route here
+app.get('/dashboard', authenticateToken, (req, res) => {
+  res.json({message: `Welcome ${req.user.username}! This is the protected route`});
+});
+
 
 app.listen(3001, () => {
     console.log('Server running on http://localhost:3001');

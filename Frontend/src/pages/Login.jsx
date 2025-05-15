@@ -40,6 +40,8 @@ const Login = () => {
     if(res.ok)
       {
         alert(data.message || 'Login Successful');
+
+        localStorage.setItem('token', data.token);
         navigate('/dashboard');
       } 
       else{
