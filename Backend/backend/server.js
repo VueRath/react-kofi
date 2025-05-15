@@ -4,9 +4,20 @@ const cors = require('cors');
 const e = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, '.env')});
 const SECRET_KEY = process.env.SECRET_KEY;
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
+console.log('ENV file contents: ', fs.readFileSync(path.resolve(__dirname,'.env'), 'utf-8'));
+
+// Token for the login file
+if(!SECRET_KEY)
+  {
+    console.error('Secret key is not defined!');
+    process.exit(1);
+  }
+
 
 const app = express();
 
@@ -85,6 +96,7 @@ app.post('/login', async (req, res) => {
 
      try {
         // Using promise
+        console.log('Login attempt: ', {username, password});
     const [results] = await db.query('SELECT * FROM users WHERE username = ?', [username]);
 
     if (results.length === 0) return res.status(401).json({ message: 'User not found' });
@@ -96,7 +108,11 @@ app.post('/login', async (req, res) => {
 
     if (!match) return res.status(401).json({ message: 'Invalid password' });
 
-    const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+    // Causes an error
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+       SECRET_KEY, { expiresIn: '1h' }
+      );
     console.log(token);
 
     res.status(200).json({
@@ -105,7 +121,7 @@ app.post('/login', async (req, res) => {
       user: {
         id: user.id,
         username: user.username,
-        role: user.role
+        role: user.role 
       }
     });
   } catch (err) {
