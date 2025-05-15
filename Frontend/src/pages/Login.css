@@ -83,3 +83,10 @@
     color: #4e2f1f;
   }
   
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
